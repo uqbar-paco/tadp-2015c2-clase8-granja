@@ -4,7 +4,7 @@ import scala.collection.mutable.Set
 
 object GranjaApp extends App {
   var animal: Animal = new Vaca
-  var vaca: Vaca = new Vaca // new Animal
+  var vaca: Vaca = new VacaLoca // new Animal
 
   animal.come
   vaca.ordeñate
@@ -12,25 +12,26 @@ object GranjaApp extends App {
   vaca = new VacaLoca
   
   vaca.ordeñate
-  //vaca.reite
+//  vaca.reite
 
   //------------------------------
-
-  var unaColeccion = Set(new Vaca, new Caballo, new Granero)
-  //unaColeccion.filter { unElemento => unElemento.estaGordo }
+  
+  var unaColeccion: List[Animal] = List(new VacaLoca, new VacaLoca)
+  unaColeccion.filter { unElemento => unElemento.estaGordo }
 
   //var unaColeccion: Set[Animal] = Set(new Vaca, new Caballo, new Granero)
 
   //-----------------------------
-
-  val corralito = new Corral(Set(new Vaca, new Vaca, new Vaca))
+  val corralito: Corral[Vaca] = new Corral(List(new Vaca, new Vaca))
   val lechero = new Lechero
   val pastor = new Pastor
+  
+  pastor.pastorear(corralito.animales)
 
-  //pastor.pastorear(corralito.animales)
-
-  //lechero.ordeñar(corralito)
-
+  lechero.ordeñar(corralito)
+  
+  val otraCol = new Vaca :: unaColeccion 
+  
   //------------------------------
 
   var vacas: Set[Vaca] = Set[Vaca]()
@@ -38,8 +39,12 @@ object GranjaApp extends App {
 
   animales.foreach { animal => animal.come }
   vacas.foreach { vaca => vaca.ordeñate }
-
+  
+//  animales = vacas
+  animales.add(new Vaca)
+  animales.add(new Caballo)
+  
   animales.add(new Caballo) // Opa! Un caballo es un animal, así que esto vale
   vacas.foreach { vaca => vaca.ordeñate } //Eh… No.
-
+  
 }

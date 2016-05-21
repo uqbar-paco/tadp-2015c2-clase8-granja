@@ -2,12 +2,21 @@ package granja
 
 import scala.collection.mutable.Set
 
-class Corral(val animales: Set[Animal])
+class Corral[T <: Animal](val animales: List[T]) {
+  def map[B <: Animal](f: T => B): Corral[B] = {
+    animales.foldLeft(0)(_ + _.peso)
+    animales.contains(new Vaca)
+    new Corral(animales.map(f))
+  }
+  
+  
+}
 
 class Pastor {
-  def pastorear(animales: Set[Animal]) = animales.foreach (_.come)
+  def pastorear(animales: List[Animal]) = animales.foreach (_.come)
 }
 
 class Lechero {
-  //def ordeñar(corral:Corral) = corral.animales.foreach(_.ordeñate)
+  def ordeñar(corral:Corral[Vaca]) = corral.animales
+    .foreach(animal => animal.ordeñate)
 }
